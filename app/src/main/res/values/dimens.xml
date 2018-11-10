@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="textSizeLarge">18sp</dimen>
+    <dimen name="textSizeExtraLarge">20sp</dimen>
+    <dimen name="padding_minor">8dp</dimen>
+    <dimen name="poster_card_radius">6dp</dimen>
+
+
+</resources>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="movie"
+            type="com.condorlabs.popularmovies.data.model.entity.Movie" />
+
+        <variable
+            name="DetailViewModel"
+            type="com.condorlabs.popularmovies.moviedetail.MovieDetailViewModel" />
+    </data>
+
+
+    <ScrollView
+        android:id="@+id/scrollViewDetail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/fragment_youtube_player"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <fragment
+                    android:id="@+id/player"
+                    android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <RelativeLayout
+                    android:id="@+id/panel_no_video"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/black"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:drawableStart="@android:drawable/ic_media_play"
+                        android:gravity="center"
+                        android:text="@string/msg_no_video"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+
+            </FrameLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/img_poster"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:layout_margin="16dp"
+                    android:transitionName="@string/shared_image"
+                    app:url="@{movie.posterPath}" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_toEndOf="@id/img_poster"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{movie.title}"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/textSizeExtraLarge"
+                        android:textStyle="bold" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableEnd="@drawable/ic_stars"
+                        android:singleLine="true"
+                        android:text="@{String.valueOf(movie.voteAverage)}"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/textSizeLarge" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@{movie.releaseDate}"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/textSizeLarge"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:singleLine="true"
+                        android:text="@{@string/lab_budget(String.valueOf(movie.budget))}"
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/textSizeLarge"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:button="@drawable/bg_checkbox_fav"
+                    android:checked="@{movie.favorite}"
+                    android:onCheckedChanged="@{(compoundButton, checked) ->DetailViewModel.onCheckedChange(movie, checked)}"
+                    android:src="@drawable/ic_no_fav" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:text="@string/lab_overview"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/textSizeExtraLarge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="@{movie.overview}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/textSizeLarge" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</layout>
