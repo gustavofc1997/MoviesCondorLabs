@@ -23,9 +23,7 @@ public class MovieListViewModel extends ViewModel {
         mPopularMovies = movieRepository.loadPopularMovies();
     }
 
-    public LiveData<Resource<List<Movie>>> getmPopularMovies() {
+    LiveData<Resource<List<Movie>>> getmPopularMovies() {
         return mPopularMovies;
     }
-
-
 }

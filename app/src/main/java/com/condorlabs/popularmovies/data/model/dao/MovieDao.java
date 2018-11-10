@@ -27,4 +27,6 @@ public interface MovieDao {
 
     @Query("UPDATE Movie SET budget = :budget WHERE id = :id")
     void updateMovieBudget(int id, int budget);
+
+
 }

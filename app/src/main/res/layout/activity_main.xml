@@ -15,19 +15,30 @@
     </data>
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
 
+        <Spinner
+            android:id="@+id/spinner_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:entries="@array/item_list"
+            android:padding="@dimen/padding_minor">
+
+        </Spinner>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_movies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/spinner_filter"
             app:resource="@{resource}" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>
 
 

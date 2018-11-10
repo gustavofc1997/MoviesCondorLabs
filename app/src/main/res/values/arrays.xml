@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="item_list">
+        <item>Show all</item>
+        <item>Show fav</item>
+        <item>Most voted</item>
+    </array>
+
+</resources>

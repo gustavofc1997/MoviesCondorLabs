@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -55,11 +56,15 @@ public class MovieDetailActivity extends AppCompatActivity implements LifecycleR
         super.onCreate(savedInstanceState);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setTitle(getString(R.string.title_movie_detail));
-        mActivityBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
-        movieDetailViewModel = ViewModelProviders.of(this, mViewModelFactory).get(MovieDetailViewModel.class);
 
         int movieId = getIntent().getIntExtra(PARAM_MOVIE_ID, 0);
+
+
+        mActivityBinding = DataBindingUtil.setContentView(this, R.layout.activity_movie_detail);
+
+        movieDetailViewModel = ViewModelProviders.of(this, mViewModelFactory).get(MovieDetailViewModel.class);
         mActivityBinding.setDetailViewModel(movieDetailViewModel);
+
         movieDetailViewModel.getMovieById(movieId)
                 .observe(this, movieEntity -> mActivityBinding.setMovie(movieEntity.data));
         movieDetailViewModel.getTrailers(String.valueOf(movieId)).observe(this, trailer ->
@@ -96,6 +101,7 @@ public class MovieDetailActivity extends AppCompatActivity implements LifecycleR
         fragmentTransaction.commit();
     }
 
+    @NonNull
     @Override
     public LifecycleRegistry getLifecycle() {
         return mLfRegistry;

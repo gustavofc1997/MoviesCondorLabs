@@ -33,13 +33,33 @@ public class MovieListAdapter extends BaseAdapter<MovieListAdapter.MovieViewHold
         notifyDataSetChanged();
     }
 
+    public void filterByFav(List<Movie> movieEntities) {
+        List<Movie> moviesToShow = new ArrayList<>();
+        for (Movie movieEntity : movieEntities) {
+            if (movieEntity.isFavorite())
+                moviesToShow.add(movieEntity);
+        }
+        setData(moviesToShow);
+    }
+
+    void filterByMostVoted(List<Movie> movieEntities) {
+        List<Movie> moviesToShow = new ArrayList<>();
+        for (Movie movieEntity : movieEntities) {
+            if (movieEntity.getVoteCount() > 2000)
+                moviesToShow.add(movieEntity);
+        }
+        setData(moviesToShow);
+
+    }
+
+    @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         return MovieViewHolder.create(LayoutInflater.from(viewGroup.getContext()), viewGroup, movieItemCallback);
     }
 
     @Override
-    public void onBindViewHolder(MovieViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull MovieViewHolder viewHolder, int i) {
         viewHolder.onBind(mMoviesList.get(i));
     }
 
