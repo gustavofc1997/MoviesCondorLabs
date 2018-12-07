@@ -12,7 +12,4 @@ public class TrailersResponse {
         return results;
     }
 
-    public void setResults(ArrayList<Trailer> results) {
-        this.results = results;
-    }
 }

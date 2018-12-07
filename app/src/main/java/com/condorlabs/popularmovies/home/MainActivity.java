@@ -1,7 +1,5 @@
 package com.condorlabs.popularmovies.home;
 
-import android.arch.lifecycle.ViewModelProvider;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,24 +8,26 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.condorlabs.popularmovies.R;
 import com.condorlabs.popularmovies.data.model.entity.Movie;
 import com.condorlabs.popularmovies.databinding.ActivityMainBinding;
 import com.condorlabs.popularmovies.moviedetail.MovieDetailActivity;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import dagger.android.AndroidInjection;
+
 
 /**
  * Created by gustavofc97 on 9/11/2018.
  */
 
-public class MainActivity extends AppCompatActivity implements MovieItemCallback {
+
+public class MainActivity extends AppCompatActivity implements MovieItemCallback, MoviesHomeContract.MoviesHomeView {
 
     MovieListViewModel mMovieListViewModel;
     ActivityMainBinding mDataBinding;
@@ -35,8 +35,8 @@ public class MainActivity extends AppCompatActivity implements MovieItemCallback
     private List<Movie> mListMoviews;
 
 
-    @Inject
-    ViewModelProvider.Factory mViewModelFactory;
+    // @Inject
+    //MoviesHomeContract.MoviesHomePresenter mPresenter;
 
     public static Intent newIntent(Context context) {
         return new Intent(context, MainActivity.class);
@@ -46,14 +46,22 @@ public class MainActivity extends AppCompatActivity implements MovieItemCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AndroidInjection.inject(this);
-
         super.onCreate(savedInstanceState);
+
+        //  ((MoviesApp) getApplication()).getComponent().inject(this);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mMovieListViewModel = ViewModelProviders.of(this, mViewModelFactory).get(MovieListViewModel.class);
-        mDataBinding.setMovieListViewModel(mMovieListViewModel);
-        mDataBinding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
+
+        // mPresenter.setView(this);
+
         mListAdapter = new MovieListAdapter(this);
+        mDataBinding.rvMovies.setLayoutManager(new LinearLayoutManager(this));
         mDataBinding.rvMovies.setAdapter(mListAdapter);
+
+//        mPresenter.loadMoviesList();
+
+        /*mMovieListViewModel = ViewModelProviders.of(this, mViewModelFactory).get(MovieListViewModel.class);
+        mDataBinding.setMovieListViewModel(mMovieListViewModel);
+
         loadMoviesDefault();
         mDataBinding.spinnerFilter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -75,24 +83,29 @@ public class MainActivity extends AppCompatActivity implements MovieItemCallback
             public void onNothingSelected(AdapterView<?> adapterView) {
 
             }
-        });
+        });*/
     }
 
     @Override
     public void onClickMovieItem(Movie movie, View sharedView) {
         ActivityOptionsCompat options = ActivityOptionsCompat.
                 makeSceneTransitionAnimation(this, sharedView, getString(R.string.shared_image));
-        startActivity(MovieDetailActivity.newIntent(this, movie.getId()), options.toBundle());
+        startActivity(MovieDetailActivity.Companion.newIntent(this, movie.getId()), options.toBundle());
     }
 
 
     private void loadMoviesDefault() {
-        mMovieListViewModel.getmPopularMovies()
+      /*  mMovieListViewModel.getmPopularMovies()
                 .observe(this, listResource -> {
                     mListMoviews = listResource.data;
                     mDataBinding.setResource(listResource);
-                });
+                });*/
 
     }
 
+
+    @Override
+    public void showMoviesList(@NotNull ArrayList<Movie> movieEntities) {
+        mListAdapter.setData(movieEntities);
+    }
 }

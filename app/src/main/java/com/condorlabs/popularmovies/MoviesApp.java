@@ -19,6 +19,7 @@ public class MoviesApp extends Application implements HasActivityInjector {
     public AndroidInjector<Activity> activityInjector() {
         return activityDispatchingInjector;
     }
+
     @Override
     public void onCreate() {
         super.onCreate();

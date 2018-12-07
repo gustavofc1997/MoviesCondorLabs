@@ -5,7 +5,7 @@ import android.arch.lifecycle.ViewModel;
 
 import com.condorlabs.popularmovies.data.Resource;
 import com.condorlabs.popularmovies.data.model.entity.Movie;
-import com.condorlabs.popularmovies.remote.MovieRepository;
+import com.condorlabs.popularmovies.data.remote.MovieRepository;
 
 import java.util.List;
 
@@ -16,6 +16,8 @@ import javax.inject.Inject;
  */
 
 public class MovieListViewModel extends ViewModel {
+
+
     private final LiveData<Resource<List<Movie>>> mPopularMovies;
 
     @Inject

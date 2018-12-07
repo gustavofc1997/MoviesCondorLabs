@@ -3,7 +3,6 @@
 
     <string name="lab_overview">Overview</string>
     <string name="shared_image">sharedimage</string>
-    <string name="lab_rating">Rating: %1$s</string>
     <string name="lab_budget">Budget: %1$s</string>
     <string name="title_movie_detail">Movie detail</string>
     <string name="msg_no_video">We are sorry, this video is not available</string>

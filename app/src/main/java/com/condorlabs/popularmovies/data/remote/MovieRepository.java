@@ -1,4 +1,4 @@
-package com.condorlabs.popularmovies.remote;
+package com.condorlabs.popularmovies.data.remote;
 
 import android.arch.lifecycle.LiveData;
 import android.os.AsyncTask;
@@ -24,10 +24,10 @@ public class MovieRepository {
 
     private final MovieDao mMovieDao;
     private final TrailerDao mTrailerDao;
-    private final com.condorlabs.popularmovies.remote.TheMovieDBApi mApiService;
+    private final com.condorlabs.popularmovies.data.remote.TheMovieDBApi mApiService;
 
     @Inject
-    public MovieRepository(MovieDao mMovieDao, TrailerDao mTrailerDao, com.condorlabs.popularmovies.remote.TheMovieDBApi mApiService) {
+    public MovieRepository(MovieDao mMovieDao, TrailerDao mTrailerDao, TheMovieDBApi mApiService) {
         this.mMovieDao = mMovieDao;
         this.mTrailerDao = mTrailerDao;
         this.mApiService = mApiService;
@@ -109,9 +109,7 @@ public class MovieRepository {
 
             @Override
             protected void saveCallResult(@NonNull Movie item) {
-
                 mMovieDao.updateMovieBudget(id, item.getBudget());
-
             }
 
             @NonNull

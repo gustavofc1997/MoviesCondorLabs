@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-
-    <data>
-
-        <variable
-            name="resource"
-            type="com.condorlabs.popularmovies.data.Resource" />
-
-        <variable
-            name="MovieListViewModel"
-            type="com.condorlabs.popularmovies.home.MovieListViewModel" />
-    </data>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
 
     <RelativeLayout
@@ -35,8 +22,7 @@
             android:id="@+id/rv_movies"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/spinner_filter"
-            app:resource="@{resource}" />
+            android:layout_below="@id/spinner_filter" />
 
     </RelativeLayout>
 </layout>

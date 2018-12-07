@@ -3,6 +3,7 @@ package com.condorlabs.popularmovies.di;
 import android.app.Application;
 
 import com.condorlabs.popularmovies.MoviesApp;
+import com.condorlabs.popularmovies.moviedetail.MovieDetailModule;
 
 import javax.inject.Singleton;
 
@@ -13,7 +14,7 @@ import dagger.android.AndroidInjectionModule;
 @Singleton
 @Component(modules = {
         AppModule.class,
-        AndroidInjectionModule.class,
+        MovieDetailModule.class, AndroidInjectionModule.class,
         ActivityBuilderModule.class})
 public interface AppComponent {
 

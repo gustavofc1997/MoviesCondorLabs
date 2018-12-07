@@ -1,4 +1,4 @@
-package com.condorlabs.popularmovies.remote;
+package com.condorlabs.popularmovies.data.remote;
 
 
 import com.condorlabs.popularmovies.data.model.entity.Movie;

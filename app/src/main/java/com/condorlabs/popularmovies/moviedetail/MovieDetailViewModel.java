@@ -2,13 +2,11 @@ package com.condorlabs.popularmovies.moviedetail;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
-import android.os.AsyncTask;
 
 import com.condorlabs.popularmovies.data.Resource;
-import com.condorlabs.popularmovies.data.model.dao.MovieDao;
 import com.condorlabs.popularmovies.data.model.entity.Movie;
 import com.condorlabs.popularmovies.data.model.entity.Trailer;
-import com.condorlabs.popularmovies.remote.MovieRepository;
+import com.condorlabs.popularmovies.data.remote.MovieRepository;
 
 import java.util.List;
 

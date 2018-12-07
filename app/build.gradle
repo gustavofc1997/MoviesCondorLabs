@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -20,9 +20,10 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
-    dataBinding{
+    dataBinding {
         enabled = true
     }
+
 }
 
 dependencies {
@@ -47,4 +48,8 @@ dependencies {
     //ui
     implementation rootProject.ext.picasso
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }
