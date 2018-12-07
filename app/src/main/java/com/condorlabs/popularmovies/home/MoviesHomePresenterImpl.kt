@@ -7,6 +7,10 @@ import java.util.*
 class MoviesHomePresenterImpl(val movieRepository: MovieRepository) : MoviesHomeContract.MoviesHomePresenter {
 
     lateinit var mView: MoviesHomeContract.MoviesHomeView
+
+
+
+
     override fun setView(view: MoviesHomeContract.MoviesHomeView) {
         mView = view
     }

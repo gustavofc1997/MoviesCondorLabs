@@ -14,6 +14,7 @@ import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import dagger.android.AndroidInjection
+import com.condorlabs.popularmovies.R
 import javax.inject.Inject
 
 /**
@@ -21,9 +22,11 @@ import javax.inject.Inject
  */
 
 
-class MovieDetailActivity @Inject constructor(private val mPresenter: MovieDetailContract.MovieDetailPresenter) : AppCompatActivity(), MovieDetailContract.MovieDetailView, YouTubePlayer.PlaybackEventListener, YouTubePlayer.OnInitializedListener {
+class MovieDetailActivity : AppCompatActivity(), MovieDetailContract.MovieDetailView, YouTubePlayer.PlaybackEventListener, YouTubePlayer.OnInitializedListener {
 
 
+    @Inject
+    lateinit var mPresenter: MovieDetailContract.MovieDetailPresenter
     private val mTrailerId: String? = null
     private lateinit var mActivityBinding: ActivityMovieDetailBinding
     private var mMovieId: Int = 0

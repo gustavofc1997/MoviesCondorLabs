@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import com.condorlabs.popularmovies.BaseAdapter
 import com.condorlabs.popularmovies.data.model.entity.Movie
 import java.util.*
+import com.condorlabs.popularmovies.databinding.ItemMovieListBinding
+
 
 /**
  * Created by gustavofc97 on 9/11/2018.
@@ -55,7 +57,7 @@ class MovieListAdapter(val movieItemCallback: MovieItemCallback) : BaseAdapter<M
     class MovieViewHolder(var binding: ItemMovieListBinding, callback: MovieItemCallback) : RecyclerView.ViewHolder(binding.root) {
 
         init {
-            binding.root.setOnClickListener { callback.onClickMovieItem(binding.movie, binding.imgPoster) }
+            binding.root.setOnClickListener { callback.onClickMovieItem(binding.movie!!, binding.imgPoster) }
         }
 
         fun onBind(movie: Movie) {

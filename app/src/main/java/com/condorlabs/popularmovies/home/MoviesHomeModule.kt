@@ -1,13 +1,15 @@
 package com.condorlabs.popularmovies.home
 
+import com.condorlabs.popularmovies.data.remote.MovieRepository
 import dagger.Module
+import dagger.Provides
 
 @Module
 class MoviesHomeModule {
 
-    /*@Provides
-    fun providesMoviesHomePresenter(repository: MovieRepository): MoviesHomeContract.MoviesHomePresenter {
+    @Provides
+    fun providesPresenter(repository: MovieRepository): MoviesHomeContract.MoviesHomePresenter {
         return MoviesHomePresenterImpl(repository)
-    }*/
+    }
 
 }
