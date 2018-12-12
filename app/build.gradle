@@ -1,3 +1,9 @@
+version = '1.0'
+
+apply plugin:'java-library'
+apply plugin:'kotlin'
+apply plugin:'konan'
+
 apply plugin: 'com.android.application'
 
 android {
@@ -25,6 +31,10 @@ android {
     }
 }
 
+repositories {
+    jcenter()
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     //support lib
@@ -46,5 +56,80 @@ dependencies {
     annotationProcessor rootProject.ext.daggerAndroidProcessor
     //ui
     implementation rootProject.ext.picasso
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
     implementation files('libs/YouTubeAndroidPlayerApi.jar')
+}
+
+buildscript {
+    ext.kotlin_version = '1.2.60'
+    ext.konan_version = '0.8.2'
+
+    repositories {
+        mavenCentral()
+        maven {
+            url  "https://dl.bintray.com/jetbrains/kotlin-native-dependencies"
+        }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-native-gradle-plugin:$konan_version"
+    }
+}
+
+
+
+
+
+apply plugin: 'maven-publish'
+
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = "com.zendesk.nativetest"
+            artifactId = "zendesk-native-test"
+
+            from components.java
+
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
+}
+konan.targets = ['ios_arm32', 'ios_arm64', 'ios_x64']
+
+def frameworkName = 'KotlinNativeTestLibrary'
+
+konanArtifacts {
+    framework(frameworkName)
+}
+
+
+task lipo(type: Exec) {
+    def frameworks = files(
+            "$buildDir/konan/bin/ios_arm32/${frameworkName}.framework/$frameworkName",
+            "$buildDir/konan/bin/ios_arm64/${frameworkName}.framework/$frameworkName",
+            "$buildDir/konan/bin/ios_x64/${frameworkName}.framework/$frameworkName"
+    )
+    def output = file("$buildDir/konan/bin/iphone_universal/${frameworkName}.framework/$frameworkName")
+    inputs.files frameworks
+    outputs.file output
+    executable = 'lipo'
+    args = frameworks.files
+    args += ['-create', '-output', output]
+}
+task copyFramework(type: Copy, dependsOn: lipo) {
+    from("$buildDir/konan/bin/ios_arm64") {
+        include '*/Headers/*'
+        include '*/Modules/*'
+        include '*/Info.plist'
+    }
+    from "$buildDir/konan/bin/iphone_universal"
+    into "$buildDir/konan/bin/iphone_universal_framework/"
 }
